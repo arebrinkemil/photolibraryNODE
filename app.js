@@ -4,9 +4,9 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-const productRoutes = require("./api/routes/products");
-const orderRoutes = require("./api/routes/orders");
+const imageRoutes = require("./api/routes/images");
 const userRoutes = require("./api/routes/user");
+const albumRoutes = require("./api/routes/albums");
 
 mongoose.connect(
   "mongodb+srv://earebrink:" +
@@ -18,6 +18,7 @@ app.use(morgan("dev"));
 app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.static("public"));
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -32,10 +33,9 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes which should handle requests
-app.use("/products", productRoutes);
-app.use("/orders", orderRoutes);
 app.use("/user", userRoutes);
+app.use("/albums", albumRoutes);
+app.use("/images", imageRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
