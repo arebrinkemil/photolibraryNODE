@@ -12,7 +12,7 @@ function createAlbums(albums) {
   const albumsContainer = document.getElementById("albums");
   const albumButton = document.createElement("button");
   albumButton.innerHTML = "HOME";
-  albumButton.setAttribute("class", "album text-blue-600");
+  albumButton.setAttribute("class", "album text-black text-4xl");
   albumButton.setAttribute("data-album-id", "none");
   albumsContainer.appendChild(albumButton);
   albumButton.addEventListener("click", function (event) {
@@ -22,7 +22,7 @@ function createAlbums(albums) {
   albums.forEach((album) => {
     const albumButton = document.createElement("button");
     albumButton.innerHTML = album.name;
-    albumButton.setAttribute("class", "album text-blue-600");
+    albumButton.setAttribute("class", "album text-black text-4xl");
     albumButton.setAttribute("data-album-id", album._id);
     albumsContainer.appendChild(albumButton);
 
@@ -48,11 +48,8 @@ function createImages(images) {
   images.forEach((image) => {
     const imageElement = document.createElement("img");
     imageElement.setAttribute("src", image.imagePath);
-    imageElement.setAttribute("class", "image");
-    imageElement.setAttribute("class", "drop-in");
-
+    imageElement.setAttribute("class", "image drop-in");
     imageElement.setAttribute("loading", "lazy");
-
     imagesContainer.appendChild(imageElement);
   });
 }
