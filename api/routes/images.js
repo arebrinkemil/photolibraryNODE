@@ -113,10 +113,9 @@ router.patch("/:imageId", (req, res, next) => {
       res.status(500).json({ error: err });
     });
 });
-
 router.delete("/:imageId", (req, res, next) => {
   const id = req.params.imageId;
-  Image.remove({ _id: id })
+  Image.deleteOne({ _id: id })
     .exec()
     .then((result) => {
       res.status(200).json({

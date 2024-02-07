@@ -3,10 +3,13 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const imageRoutes = require("./api/routes/images");
 const userRoutes = require("./api/routes/user");
 const albumRoutes = require("./api/routes/albums");
+
+console.log(process.env.MONGO_ATLAS_PW);
 
 mongoose.connect(
   "mongodb+srv://earebrink:" +
