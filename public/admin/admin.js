@@ -23,28 +23,28 @@ async function createAlbums(albums) {
   const albumsContainer = document.getElementById("albums");
 
   for (const album of albums) {
-    const albumList = document.createElement("ul");
-    albumList.setAttribute("class", "album");
-    albumList.setAttribute("data-album-id", album._id);
-
-    const albumNameItem = document.createElement("li");
+    const albumNameItem = document.createElement("h1");
     albumNameItem.textContent = album.name;
-    albumList.appendChild(albumNameItem);
+    albumNameItem.setAttribute("class", "text-3xl font-bold text-center mt-10");
+    albumsContainer.appendChild(albumNameItem);
+    const albumList = document.createElement("ul");
+    albumList.setAttribute(
+      "class",
+      "album w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5"
+    );
+    albumList.setAttribute("data-album-id", album._id);
 
     const images = await getImages(album._id);
     if (images) {
       images.forEach((image) => {
         const cleanedImagePath = "../" + image.imagePath;
-        const imageElement = document.createElement("li");
-        imageElement.innerHTML = `Filename: ${image.imageName}, Filepath: ${image.imagePath}`;
-        albumList.appendChild(imageElement);
         const imageDiv = document.createElement("div");
         imageDiv.className = "rounded overflow-hidden shadow-lg";
 
         const imgElement = document.createElement("img");
         imgElement.src = cleanedImagePath;
         imgElement.alt = image.imageName;
-        imgElement.className = "max-w-16";
+        imgElement.className = "w-full h-64 object-cover";
 
         imageDiv.appendChild(imgElement);
 
@@ -59,6 +59,10 @@ async function createAlbums(albums) {
             imageDiv.remove();
           });
         };
+
+        const imageElement = document.createElement("li");
+        imageElement.innerHTML = `Filename: ${image.imageName}, Filepath: ${image.imagePath}`;
+        imageDiv.appendChild(imageElement);
 
         imageDiv.appendChild(deleteButton);
         albumList.appendChild(imageDiv);
