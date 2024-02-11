@@ -47,7 +47,7 @@ function createImages(images) {
   imagesContainer.innerHTML = "";
   images.forEach((image) => {
     const imageElement = document.createElement("img");
-    imageElement.setAttribute("src", image.imagePath);
+    imageElement.setAttribute("src", `/${image.imagePath}`);
     imageElement.setAttribute("class", "image drop-in");
     imageElement.setAttribute("loading", "lazy");
     imagesContainer.appendChild(imageElement);
