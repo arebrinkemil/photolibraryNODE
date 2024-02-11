@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("/albums")
+  fetch("https://photoapi.onrender.com/albums")
     .then((response) => response.json())
     .then((data) => {
       createAlbums(data.albums);
@@ -34,7 +34,7 @@ function createAlbums(albums) {
 }
 
 function getImages(albumId) {
-  fetch(`/images/album/${albumId}`)
+  fetch(`https://photoapi.onrender.com/images/album/${albumId}`)
     .then((response) => response.json())
     .then((data) => {
       createImages(data.images);

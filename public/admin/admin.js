@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("http://localhost:3000/albums")
+  fetch("https://photoapi.onrender.com/albums")
     .then((response) => response.json())
     .then((data) => {
       createOptions(data.albums);
@@ -19,7 +19,6 @@ async function createOptions(albums) {
 }
 
 async function createAlbums(albums) {
-  console.log(albums);
   const albumsContainer = document.getElementById("albums");
 
   for (const album of albums) {
@@ -53,7 +52,7 @@ async function createAlbums(albums) {
         deleteButton.className =
           "mt-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded";
         deleteButton.onclick = function () {
-          fetch(`http://localhost:3000/images/${image._id}`, {
+          fetch(`https://photoapi.onrender.com/images/${image._id}`, {
             method: "DELETE",
           }).then(() => {
             imageDiv.remove();
@@ -73,11 +72,10 @@ async function createAlbums(albums) {
 }
 
 function getImages(albumId) {
-  return fetch(`http://localhost:3000/images/album/${albumId}`)
+  return fetch(`https://photoapi.onrender.com/images/album/${albumId}`)
     .then((response) => response.json())
     .then((data) => {
       if (data.count > 0) {
-        console.log(data);
         return data.images;
       } else {
         console.error("Error fetching images:", data.error);
@@ -92,8 +90,6 @@ function getImages(albumId) {
 let filesToUpload = [];
 
 function dropHandler(ev) {
-  console.log("File(s) dropped");
-
   ev.preventDefault();
 
   if (ev.dataTransfer.items) {
@@ -101,20 +97,14 @@ function dropHandler(ev) {
       if (item.kind === "file") {
         const file = item.getAsFile();
         if (file.type.startsWith("image/")) {
-          console.log(`… file[${i}].name = ${file.name}`);
           filesToUpload.push(file);
-        } else {
-          console.log(`… file[${i}] is not an image`);
         }
       }
     });
   } else {
     [...ev.dataTransfer.files].forEach((file, i) => {
       if (file.type.startsWith("image/")) {
-        console.log(`… file[${i}].name = ${file.name}`);
         filesToUpload.push(file);
-      } else {
-        console.log(`… file[${i}] is not an image`);
       }
     });
   }
@@ -127,10 +117,9 @@ document.getElementById("uploadButton").addEventListener("click", function () {
 });
 
 function dragOverHandler(ev) {
-  console.log("File(s) in drop zone");
-
   ev.preventDefault();
 }
+
 function imageUpload(files, albumId) {
   const formData = new FormData();
   files.forEach((file, index) => {
@@ -138,7 +127,7 @@ function imageUpload(files, albumId) {
   });
   formData.append("albumId", albumId);
 
-  fetch("http://localhost:3000/images/upload", {
+  fetch("https://photoapi.onrender.com/images/upload", {
     method: "POST",
     body: formData,
   })
@@ -171,10 +160,10 @@ async function createAlbum() {
   formData.append("name", albumNameValue);
   formData.append("description", albumDescValue);
   formData.append("coverImage", coverImageFile);
-  formData.append("creationDate", new Date().toISOString()); // assuming you want to set the creationDate to the current date/time
+  formData.append("creationDate", new Date().toISOString());
 
   try {
-    const response = await fetch("/albums", {
+    const response = await fetch("https://photoapi.onrender.com/albums", {
       method: "POST",
       body: formData,
     });
