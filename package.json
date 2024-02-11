@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx tailwindcss -i ./src/input.css -o ./public/style.css && nodemon server.js",
+    "start": "node server.js",
+    "dev": "npx tailwindcss -i ./src/input.css -o ./public/style.css && nodemon server.js",
     "build:css": "postcss src/input.css -o public/style.css",
     "watch:css": "postcss src/input.css -o public/style.css --watch"
   },
